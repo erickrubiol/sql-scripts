@@ -11,6 +11,7 @@ docker run -e "ACCEPT_EULA=Y" -e "SA_PASSWORD=xxxxxxxxxx" \
 ```
 
 Copying files from host to container: `docker cp foo.txt mycontainer:/foo.txt`
+i.e. `docker cp C:\Users\erick\OneDrive\Git\Datasets\movies.json postgres:/home/movies.json`
 
 Copying files from container to host: `docker cp mycontainer:/foo.txt foo.txt`
 
@@ -20,3 +21,5 @@ For exploring the container filesystem, this command can be used: `docker exec -
 The data used comes from the AdventureWorksDW2017 sample from Microsoft:
 https://github.com/microsoft/sql-server-samples/tree/master/samples/databases/adventure-works
 
+For installing PostreSQL
+`docker run --name postgres -e POSTGRES_PASSWORD=eKwr2715 -d -p 5432:5432 postgres`
