@@ -1,16 +1,28 @@
-## How to connect to PostgreSQL
-For installing the container:
-    docker run --name PostgreSQL10 -e POSTGRES_PASSWORD=password -d -p 5432:5432 postgres
+## PostgreSQL container
 
-    docker exec -it PostgreSQL10 bash
+For downloading and creating the official PostreSQL container:
 
-For connecting to the engine using the terminal:
-    su postgres
-    psql 
-Consider that "root" execution of the PostgreSQL server is not permitted. 
+```
+sudo docker run --name postgres -e POSTGRES_PASSWORD=xxxxxxx -d -p 5432:5432 postgres
+```
 
-    \du
+After the container is created is necesary to restore the sample database, download it from https://www.postgresqltutorial.com/postgresql-sample-database/ and then copying it into the container's filesystem:
 
-    CREATE DATABASE test;
+``` 
+sudo docker cp dvdrental.tar postgres:/home/dvdrental.tar 
+```
 
-# REMEMBER TO INSTALL POSTGRES BEFORE CONNECTION TO DB
+Its mandatory to create the database before restoring it, this has to be made inside the container:
+
+```
+sudo docker exec -it postgres bash
+psql -U postgres
+CREATE DATABASE dvdrental;
+exit
+```
+
+Finally the database can be restored with one command:
+
+```
+pg_restore -U postgres -d dvdrental /home/dvdrental.tar
+```
